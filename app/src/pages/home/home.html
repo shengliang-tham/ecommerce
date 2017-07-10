@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Home</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list>
+    <div >
+      <ion-item *ngFor="let listing of listings">
+        <ion-thumbnail item-start>
+          <img src={{listing.image.src}}>
+        </ion-thumbnail>
+        <h2>{{listing.title}}</h2>
+        <p>Hayao Miyazaki • 1988</p>
+        <button ion-button clear item-end>View</button>
+      </ion-item>
+    </div>
+
+  </ion-list>
+</ion-content>
