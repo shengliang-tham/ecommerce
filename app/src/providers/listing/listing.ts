@@ -1,13 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, Headers, URLSearchParams } from '@angular/http';
 import 'rxjs/add/operator/map';
 
-/*
-  Generated class for the ListingProvider provider.
+import * as vars from '../../global-variable';
 
-  See https://angular.io/docs/ts/latest/guide/dependency-injection.html
-  for more info on providers and Angular DI.
-*/
+
 @Injectable()
 export class ListingProvider {
 
@@ -16,10 +13,15 @@ export class ListingProvider {
   }
 
 
-  retrieveListing(){
-    let headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-    return this.http.get('http://localhost:3000/listing', headers)
+  retrieveCategories() {
+    return this.http.get(vars.apiUrl + '/categories')
+      .map(res => res.json());
+  }
+
+  retrieveCategoryProduct(collectionId) {
+    let params: URLSearchParams = new URLSearchParams();
+    params.set('collectionId', collectionId);
+    return this.http.get(vars.apiUrl + '/categories-product', { search: params })
       .map(res => res.json());
   }
 }

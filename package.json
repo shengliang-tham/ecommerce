@@ -13,6 +13,7 @@
     "body-parser": "^1.17.2",
     "express": "^4.15.3",
     "request": "^2.81.0",
-    "shopify-api-node": "^2.7.0"
+    "shopify-api-node": "^2.7.0",
+    "shopify-buy": "^0.7.1"
   }
 }

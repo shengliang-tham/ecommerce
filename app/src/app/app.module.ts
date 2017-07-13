@@ -12,6 +12,8 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { ListingProvider } from '../providers/listing/listing';
 import { HttpModule } from '@angular/http';
+import { ProductListingPage } from "../pages/product-listing/product-listing";
+import { ProductDetailPage } from "../pages/product-detail/product-detail";
 
 @NgModule({
   declarations: [
@@ -19,7 +21,9 @@ import { HttpModule } from '@angular/http';
     AboutPage,
     ContactPage,
     HomePage,
-    TabsPage
+    TabsPage,
+    ProductListingPage,
+    ProductDetailPage
   ],
   imports: [
     HttpModule,
@@ -32,13 +36,15 @@ import { HttpModule } from '@angular/http';
     AboutPage,
     ContactPage,
     HomePage,
-    TabsPage
+    TabsPage,
+    ProductListingPage,
+    ProductDetailPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
     ListingProvider
   ]
 })
-export class AppModule {}
+export class AppModule { }
