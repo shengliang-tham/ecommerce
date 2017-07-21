@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 /**
@@ -16,6 +16,8 @@ export class ProductDetailPage {
   productDetails: any;
   pictureImages : any = [];
   tabBarElement: any;
+  
+  @ViewChild('description') description: ElementRef;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.productDetails = navParams.get("productDetails");
@@ -26,6 +28,7 @@ export class ProductDetailPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad ProductDetailPage');
     console.log(this.productDetails);
+    this.description.nativeElement.innerHTML = this.productDetails.attrs.body_html;
   }
 
   ionViewWillEnter() {
