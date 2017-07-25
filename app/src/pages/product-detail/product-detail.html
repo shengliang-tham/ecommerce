@@ -22,11 +22,36 @@
       </ion-slide>
 
     </ion-slides>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col col-10>
+          <div class="productTitle">
+            {{productDetails.attrs.title}}
+          </div>
+        </ion-col>
+        <ion-col col-2>
+          <div class="productPrice">
+            {{productDetails.attrs.variants[0].formatted_price}}
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <div #description class="productDescription">
+
+    </div>
+
+
+    <div text-center>
+      <button ion-button round center text-center>Add to Cart  
+       <ion-icon name="cart"></ion-icon> 
+      </button>
+    </div>
+
+
   </div>
 
-  {{productDetails.attrs.title}}
 
-  <div #description>
 
-  </div>
 </ion-content>
