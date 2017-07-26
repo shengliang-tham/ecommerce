@@ -1,8 +1,11 @@
 page-product-detail {}
 
-// div {
-//   font-family: "Verdana", Times, serif;
-// }
+div {
+  // font-family: "Verdana", Times, serif;
+  text-align: justify;
+  text-justify: inter-word;
+}
+
 .productTitle {
   font-weight: bold;
 }
@@ -13,5 +16,6 @@ page-product-detail {}
 // .productDescription {
 //   clear: left;
 // }
-
-
+.cart {
+  margin-top: 2%;
+}

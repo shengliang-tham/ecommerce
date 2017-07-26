@@ -36,15 +36,15 @@
           </div>
         </ion-col>
       </ion-row>
+      <ion-row>
+        <div #description class="productDescription">
+
+        </div>
+      </ion-row>
     </ion-grid>
 
-    <div #description class="productDescription">
-
-    </div>
-
-
-    <div text-center>
-      <button ion-button round center text-center>Add to Cart  
+    <div text-center class="cart">
+      <button ion-button round center text-center (click)="addToCart()">Add to Cart  
        <ion-icon name="cart"></ion-icon> 
       </button>
     </div>
