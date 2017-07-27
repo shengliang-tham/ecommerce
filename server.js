@@ -82,6 +82,15 @@ app.get('/listing', (req, res, next) => {
 })
 
 
+app.get('/customers', (req, res, next) => {
+  shopify.customer.list()
+    .then(customer =>
+      res.json({
+        customer: customer
+      }))
+    .catch(err => console.error(err))
+})
+
 //Start the server only the connection to database is successful
 app.listen(port, () => {
   console.log('Server started on port' + port);
