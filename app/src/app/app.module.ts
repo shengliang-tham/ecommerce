@@ -29,7 +29,7 @@ import { ProductDetailPage } from "../pages/product-detail/product-detail";
   imports: [
     HttpModule,
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp, { scrollAssist: false, autoFocusAssist: false })
   ],
   bootstrap: [IonicApp],
   entryComponents: [

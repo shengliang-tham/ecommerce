@@ -11,6 +11,7 @@ import { TabsPage } from '../pages/tabs/tabs';
   templateUrl: 'app.html'
 })
 export class MyApp {
+  tabBarElement: any;
   rootPage: any = TabsPage;
 
   constructor(platform: Platform,
@@ -24,12 +25,20 @@ export class MyApp {
       statusBar.styleDefault();
       splashScreen.hide();
 
+      // keyboard.disableScroll(true);
+
       keyboard.onKeyboardShow().subscribe(() => {
-        document.body.classList.add('keyboard-is-open');
+        // document.body.classList.add('keyboard-is-open');
+        // document.querySelector('.tabbar.show-tabbar').style.display = 'none';
+        this.tabBarElement = document.querySelector('.tabbar.show-tabbar');
+        this.tabBarElement.style.display = 'none';
+        this.tabBarElement.remove;
       });
 
       keyboard.onKeyboardHide().subscribe(() => {
-        document.body.classList.remove('keyboard-is-open');
+        // document.body.classList.remove('keyboard-is-open');
+        this.tabBarElement.style.display = 'flex';
+        this.tabBarElement.remove();
       });
     });
   }
