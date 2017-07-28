@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, Headers } from '@angular/http';
 import 'rxjs/add/operator/map';
 
 import * as vars from '../../global-variable';
@@ -17,7 +17,9 @@ export class ProfileProvider {
   }
 
   signUp(credentials) {
-    return this.http.post(vars.apiUrl + '/sign-up', credentials)
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.post(vars.apiUrl + '/sign-up', credentials, { headers: headers })
       .map(res => res.json());
   }
 }

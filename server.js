@@ -93,6 +93,13 @@ app.get('/customers', (req, res, next) => {
 
 app.post('/sign-up', (req, res, next) => {
   console.log(req.body);
+  shopify.customer.create(req.body)
+    .then(result => {
+      res.json({
+        result: result
+      })
+    })
+    .catch(err => console.error(err))
 });
 
 //Start the server only the connection to database is successful
