@@ -10,6 +10,7 @@ import { TabsPage } from '../pages/tabs/tabs';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { Keyboard } from '@ionic-native/keyboard';
 import { ListingProvider } from '../providers/listing/listing';
 import { HttpModule } from '@angular/http';
 import { ProductListingPage } from "../pages/product-listing/product-listing";
@@ -43,6 +44,7 @@ import { ProductDetailPage } from "../pages/product-detail/product-detail";
   providers: [
     StatusBar,
     SplashScreen,
+    Keyboard,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     ListingProvider
   ]
