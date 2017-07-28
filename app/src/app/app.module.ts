@@ -15,6 +15,8 @@ import { ListingProvider } from '../providers/listing/listing';
 import { HttpModule } from '@angular/http';
 import { ProductListingPage } from "../pages/product-listing/product-listing";
 import { ProductDetailPage } from "../pages/product-detail/product-detail";
+import { SignupPage } from "../pages/profile/signup/signup";
+import { ProfileProvider } from '../providers/profile/profile';
 
 @NgModule({
   declarations: [
@@ -23,6 +25,7 @@ import { ProductDetailPage } from "../pages/product-detail/product-detail";
     ProfilePage,
     HomePage,
     TabsPage,
+    SignupPage,
     ProductListingPage,
     ProductDetailPage
   ],
@@ -38,6 +41,7 @@ import { ProductDetailPage } from "../pages/product-detail/product-detail";
     ProfilePage,
     HomePage,
     TabsPage,
+    SignupPage,
     ProductListingPage,
     ProductDetailPage
   ],
@@ -46,7 +50,8 @@ import { ProductDetailPage } from "../pages/product-detail/product-detail";
     SplashScreen,
     Keyboard,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
-    ListingProvider
+    ListingProvider,
+    ProfileProvider
   ]
 })
 export class AppModule { }

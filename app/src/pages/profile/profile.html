@@ -5,49 +5,19 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding-right >
-  <ion-item class="float-left">
-    <ion-label stacked>First Name</ion-label>
-    <ion-input type="text"></ion-input>
-  </ion-item>
-
-  <ion-item class="float-right">
-    <ion-label stacked>Last Name</ion-label>
-    <ion-input type="text"></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label stacked>Mobile Number</ion-label>
-    <ion-input type="tel"></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label stacked>Address</ion-label>
-    <ion-input type="text"></ion-input>
-  </ion-item>
-
-  <ion-item class="float-left">
-    <ion-label stacked>City</ion-label>
-    <ion-input type="text"></ion-input>
-  </ion-item>
-
-  <ion-item class="float-right">
-    <ion-label stacked>Postal Code</ion-label>
-    <ion-input type="text"></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label stacked>Email</ion-label>
-    <ion-input type="text"></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label stacked>Password</ion-label>
-    <ion-input type="password"></ion-input>
-  </ion-item>
-
-
-  <!-- <div padding>
-    <button block>Sign Up</button>
-  </div> -->
+<ion-content padding-right>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-6>
+        <div text-center>
+          <button ion-button margin-top class="signUp" (click)="signUp()">SIGN UP</button>
+        </div>
+      </ion-col>
+      <ion-col col-6>
+        <div text-center>
+          <button ion-button margin-top class="signUp" (click)="signUp()">LOG IN</button>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
