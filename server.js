@@ -61,8 +61,8 @@ app.get('/categories', (req, res, next) => {
 app.get('/categories-product', (req, res, next) => {
   let collectionId = req.query.collectionId;
   shopClient.fetchQueryProducts({
-      collection_id: collectionId
-    })
+    collection_id: collectionId
+  })
     // shopClient.fetchCollection(collectionId)
     .then(collectionListing => {
       res.json({
@@ -89,7 +89,11 @@ app.get('/customers', (req, res, next) => {
         customer: customer
       }))
     .catch(err => console.error(err))
-})
+});
+
+app.post('/sign-up', (req, res, next) => {
+  console.log(req.body);
+});
 
 //Start the server only the connection to database is successful
 app.listen(port, () => {
