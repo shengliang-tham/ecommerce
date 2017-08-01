@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
-import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { IonicPage, NavController, NavParams, LoadingController, ToastController } from 'ionic-angular';
+import { FormGroup, FormBuilder, Validators, FormControl } from "@angular/forms";
 import { ProfileProvider } from "../../../providers/profile/profile";
+import { CustomValidators } from 'ng2-validation';
 
 /**
  * Generated class for the SignupPage page.
@@ -25,12 +26,12 @@ export class SignupPage {
     verified_email: true,
     addresses: [{
       address1: '',
-      city: '',
+      city: 'SG',
       province: "SG",
-      phone: "555-1212",
+      phone: "",
       zip: '',
-      last_name: "Lastnameson",
-      first_name: "Mother",
+      last_name: "",
+      first_name: "",
       country: "SG"
     }],
     password: '',
@@ -43,18 +44,18 @@ export class SignupPage {
     public navParams: NavParams,
     public formBuilder: FormBuilder,
     public loadingCtrl: LoadingController,
-    public profileService: ProfileProvider) {
+    public profileService: ProfileProvider,
+    public toastCtrl: ToastController) {
     this.tabBarElement = document.querySelector('.tabbar.show-tabbar');
 
-    this.signUpForm = this.formBuilder.group({
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
-      mobileNo: ['', Validators.required],
-      address1: ['', Validators.required],
-      city: ['', Validators.required],
-      postal: ['', Validators.required],
-      email: ['', Validators.required],
-      password: ['', Validators.required],
+    this.signUpForm = new FormGroup({
+      firstName: new FormControl('', Validators.required),
+      lastName: new FormControl('', Validators.required),
+      mobileNo: new FormControl('', Validators.required),
+      address1: new FormControl('', Validators.required),
+      postal: new FormControl('', Validators.required),
+      email: new FormControl('', [Validators.required, Validators.pattern('^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$')]),
+      password: new FormControl('', [Validators.required, Validators.minLength(6)])
     });
   }
 
@@ -79,20 +80,38 @@ export class SignupPage {
     this.customer.addresses[0].address1 = data.address1;
     this.customer.addresses[0].city = data.city;
     this.customer.addresses[0].zip = data.postal;
+    this.customer.addresses[0].phone = data.mobileNo;
+    this.customer.addresses[0].first_name = data.firstName;
+    this.customer.addresses[0].last_name = data.lastName;
     this.customer.password = data.password;
     this.customer.password_confirmation = data.password;
 
-
-    console.log(this.customer);
     let loading = this.loadingCtrl.create({
       content: 'Please wait...'
     });
 
     loading.present();
-    loading.dismiss();
-
     this.profileService.signUp(this.customer).subscribe(result => {
-      console.log(result);
+      if (result.success) {
+        let toast = this.toastCtrl.create({
+          message: 'Successfully registered',
+          position: 'bottom'
+        });
+        loading.dismiss();
+        toast.present();
+
+      }
+
+      else {
+        let toast = this.toastCtrl.create({
+          message: 'There was an error',
+          position: 'bottom'
+        });
+        loading.dismiss();
+        toast.present();
+      }
     })
+
+
   }
 }

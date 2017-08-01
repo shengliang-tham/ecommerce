@@ -35,26 +35,27 @@
       <ion-label stacked>Address</ion-label>
       <ion-input type="text" formControlName="address1" name="address1"></ion-input>
     </ion-item>
-
+    <!-- 
     <ion-item class="float-left">
       <ion-label stacked>City</ion-label>
       <ion-input type="text" formControlName="city" name="city"></ion-input>
-    </ion-item>
+    </ion-item> -->
 
-    <ion-item class="float-right">
+    <ion-item>
       <ion-label stacked>Postal Code</ion-label>
       <ion-input type="text" formControlName="postal" name="postal"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label stacked>Email</ion-label>
-      <ion-input type="text" formControlName="email" name="email"></ion-input>
+      <ion-input type="email" formControlName="email" name="email"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label stacked>Password</ion-label>
       <ion-input type="password" formControlName="password" name="password"></ion-input>
     </ion-item>
+    <ion-label padding *ngIf="signUpForm.controls.password.errors"> Minumum of 6 characters </ion-label>
 
     <div text-center>
       <button ion-button margin-top type="submit" [disabled]="!signUpForm.valid">Sign Up</button>

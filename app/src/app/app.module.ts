@@ -1,6 +1,8 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
+import { ReactiveFormsModule } from '@angular/forms';
+
 import { MyApp } from './app.component';
 
 import { CheckoutPage } from "../pages/checkout/checkout";
@@ -32,6 +34,7 @@ import { ProfileProvider } from '../providers/profile/profile';
   imports: [
     HttpModule,
     BrowserModule,
+    ReactiveFormsModule,
     IonicModule.forRoot(MyApp, { scrollAssist: false, autoFocusAssist: false })
   ],
   bootstrap: [IonicApp],
