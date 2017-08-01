@@ -61,8 +61,8 @@ app.get('/categories', (req, res, next) => {
 app.get('/categories-product', (req, res, next) => {
   let collectionId = req.query.collectionId;
   shopClient.fetchQueryProducts({
-    collection_id: collectionId
-  })
+      collection_id: collectionId
+    })
     // shopClient.fetchCollection(collectionId)
     .then(collectionListing => {
       res.json({
@@ -92,14 +92,43 @@ app.get('/customers', (req, res, next) => {
 });
 
 app.post('/sign-up', (req, res, next) => {
-  console.log(req.body);
-  shopify.customer.create(req.body)
+  // console.log(req.body);
+  // let customer = {
+  //   'customer': ''
+  // };
+  // customer.customer = req.body;
+  // console.log(customer)
+  let customer = {
+    "customer": {
+      "first_name": "Steve",
+      "last_name": "Lastnameson",
+      "email": "steve.lastnameson@example.com",
+      "phone": "+15142546011",
+      "verified_email": true,
+      "addresses": [{
+        "address1": "123 Oak St",
+        "city": "Ottawa",
+        "province": "ON",
+        "phone": "555-1212",
+        "zip": "123 ABC",
+        "last_name": "Lastnameson",
+        "first_name": "Mother",
+        "country": "CA"
+      }],
+      "send_email_invite": true
+    }
+  }
+  console.log(customer)
+  shopify.customer.create(customer)
     .then(result => {
       res.json({
         result: result
       })
     })
-    .catch(err => console.error(err))
+    .catch(err => res.json({
+      result: err
+    }))
+  // .catch(err => console.error(err))
 });
 
 //Start the server only the connection to database is successful
