@@ -18,9 +18,9 @@
     <ion-item *ngFor="let listing of listings" padding>
       <ion-thumbnail item-start>
         <!-- Always display the first image of the image variants -->
-        <img src={{listing.attrs.images[0].src}}>
+        <img src={{listing.images[0].src}}>
       </ion-thumbnail>
-      <h2>{{listing.attrs.title}}</h2>
+      <h2>{{listing.title}}</h2>
       <p>Hayao Miyazaki • 1988</p>
       <button ion-button clear item-end (click)="viewDetails(listing);">View</button>
     </ion-item>

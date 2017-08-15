@@ -4,16 +4,16 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content >
-<img src="assets/Ecommerce-Guideline-2.png" alt="">
+<ion-content>
+  <img src="assets/Ecommerce-Guideline-2.png" alt="">
   <ion-list>
     <ion-item *ngFor="let category of categories" padding>
       <ion-thumbnail item-start>
-        <img src={{category.attrs.image.src}}>
+        <img src={{category.image.src}}>
       </ion-thumbnail>
-      <h2>{{category.attrs.title}}</h2>
+      <h2>{{category.title}}</h2>
       <p>Hayao Miyazaki • 1988</p>
-      <button ion-button clear item-end (click)="viewProduct(category.attrs.collection_id);">View</button>
+      <button ion-button clear item-end (click)="viewProduct(category.collection_id);">View</button>
     </ion-item>
   </ion-list>
 </ion-content>

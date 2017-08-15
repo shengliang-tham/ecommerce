@@ -24,8 +24,6 @@ export class ProductListingPage {
   }
 
   ionViewDidLoad() {
-    console.log(this.listings);
-
   }
 
   ionViewWillEnter() {
@@ -36,9 +34,9 @@ export class ProductListingPage {
     this.tabBarElement.style.display = 'flex';
   }
 
-  viewDetails(listing){
+  viewDetails(listing) {
     this.navCtrl.push(ProductDetailPage, {
-      productDetails : listing
+      productDetails: listing
     })
   }
 

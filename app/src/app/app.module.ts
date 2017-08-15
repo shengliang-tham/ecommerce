@@ -2,6 +2,7 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { ReactiveFormsModule } from '@angular/forms';
+import { IonicStorageModule } from '@ionic/storage';
 
 import { MyApp } from './app.component';
 
@@ -35,7 +36,8 @@ import { ProfileProvider } from '../providers/profile/profile';
     HttpModule,
     BrowserModule,
     ReactiveFormsModule,
-    IonicModule.forRoot(MyApp, { scrollAssist: false, autoFocusAssist: false })
+    IonicModule.forRoot(MyApp, { scrollAssist: false, autoFocusAssist: false }),
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [

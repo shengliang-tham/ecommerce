@@ -1,11 +1,21 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      About
+      Check Out
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-
+  <ion-list>
+    <ion-item *ngFor="let item of storageArray" padding>
+      <!-- <ion-thumbnail item-start> -->
+      <!-- Always display the first image of the image variants -->
+      <!-- <img src={{listing.attrs.images[0].src}}> -->
+      <!-- </ion-thumbnail> -->
+      <h2>{{item.variantId}}</h2>
+      <p>Hayao Miyazaki • 1988</p>
+      <!-- <button ion-button clear item-end (click)="viewDetails(listing);">View</button> -->
+    </ion-item>
+  </ion-list>
 </ion-content>

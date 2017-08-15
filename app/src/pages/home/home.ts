@@ -37,7 +37,6 @@ export class HomePage {
     });
 
     loading.present();
-
     this.listingService.retrieveCategoryProduct(categoryId).subscribe(data => {
       this.navCtrl.push(ProductListingPage, {
         listing: data.listing
