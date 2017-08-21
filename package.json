@@ -10,9 +10,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "async": "^2.5.0",
     "body-parser": "^1.17.2",
     "express": "^4.15.3",
     "request": "^2.81.0",
+    "request-promise": "^4.2.1",
     "shopify-api-node": "^2.7.0",
     "shopify-buy": "^0.7.1",
     "shopify-token": "^3.0.1"

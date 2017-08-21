@@ -20,6 +20,7 @@ import { ProductListingPage } from "../pages/product-listing/product-listing";
 import { ProductDetailPage } from "../pages/product-detail/product-detail";
 import { SignupPage } from "../pages/profile/signup/signup";
 import { ProfileProvider } from '../providers/profile/profile';
+import { CheckoutProvider } from '../providers/checkout/checkout';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import { ProfileProvider } from '../providers/profile/profile';
     Keyboard,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     ListingProvider,
-    ProfileProvider
+    ProfileProvider,
+    CheckoutProvider
   ]
 })
 export class AppModule { }

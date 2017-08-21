@@ -5,7 +5,8 @@ let express = require('express'),
   Shopify = require('shopify-api-node'),
   ShopifyBuy = require('shopify-buy'),
   ShopifyToken = require('shopify-token'),
-  request = require('request'),
+  request = require('request-promise'),
+  async = require('async'),
   http = require('http');
 let app = express();
 
@@ -13,16 +14,10 @@ let app = express();
 //Specifies the port number
 let port = process.env.PORT || 3000;
 
-//Set Static Folder
-// app.use(express.static(path.join(__dirname, 'dist')));
-// var distDir = __dirname + "/dist/";
-// app.use(express.static(distDir));
-
 //Body Parser Middleware
 app.use(bodyParser.json());
 
 //https://hello-retail.myshopify.com/admin/oauth/authorize?client_id=be675cfe0b90d53f7c0f9a7c7ddb382c&scope=read_products,write_products,read_orders,write_orders,read_checkouts,write_checkouts&redirect_uri=https://hello-retail.myshopify.com&state=4214340404
-
 
 let scopes = ['read_products', 'write_products', 'read_orders', 'write_orders', 'read_checkouts', 'write_checkouts'];
 // Generation of token
@@ -33,7 +28,6 @@ let shopifyToken = new ShopifyToken({
   scopes: scopes,
 });
 
-
 let shopify = new Shopify({
   shopName: 'hello-retail',
   accessToken: 'a0b78632bf10a45b59f0b48ab976268b'
@@ -41,11 +35,11 @@ let shopify = new Shopify({
   // password: '15f630639339895ef8a9bfa839ce4f0d'
 });
 
-let shopClient = ShopifyBuy.buildClient({
-  accessToken: '94ed69b15b199294ee24ca895e3b3f14',
-  domain: 'hello-retail.myshopify.com',
-  appId: '8'
-});
+// let shopClient = ShopifyBuy.buildClient({
+//   accessToken: '94ed69b15b199294ee24ca895e3b3f14',
+//   domain: 'hello-retail.myshopify.com',
+//   appId: '8'
+// });
 
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -66,31 +60,137 @@ app.get('/test', (req, res, next) => {
 })
 
 app.post('/checkout', (req, res, next) => {
-  shopify.checkout.create({
-      "checkout": {
-        "email": "john.smith@example.com",
-        "line_items": [{
-          "variant_id": 11184583431,
-          "quantity": 1
-        }],
-        "shipping_address": {
-          "first_name": "John",
-          "last_name": "Smith",
-          "address1": "126 York St.",
-          "city": "Ottawa",
-          "province_code": "ON",
-          "country_code": "CA",
-          "phone": "(123)456-7890",
-          "zip": "K1N 5T5"
-        }
-      }
-    })
-    .then(asset => {
+
+  async.waterfall([
+    createCheckout,
+    cardVaulting,
+    completePayment
+  ], function (err, result) {
+    // result now equals 'done'
+    if (err) {
       res.json({
-        result: asset
+        error: err
       })
-    })
-    .catch(err => console.error(err))
+    } else {
+      res.json({
+        data: result
+      })
+    }
+  });
+
+  function createCheckout(callback) {
+    shopify.checkout.create({
+        email: "test@hotmail.com",
+        line_items: [{
+          product_id: '10753675783',
+          variant_id: '47592213831',
+          quantity: 1
+        }],
+        billing_address: {
+          address1: "Chestnut Street 92",
+          address2: "Apt 2",
+          city: "Louisville",
+          country: "United States",
+          first_name: "Bob",
+          last_name: "Norman",
+          phone: "555-625-1199",
+          province: "Kentucky",
+          zip: "40202",
+          country_code: "US",
+          province_code: "KY"
+        },
+        shipping_address: {
+          address1: "Chestnut Street 92",
+          address2: "Apt 2",
+          city: "Louisville",
+          country: "United States",
+          first_name: "Bob",
+          last_name: "Norman",
+          phone: "555-625-1199",
+          province: "Kentucky",
+          zip: "40202",
+          country_code: "US",
+          province_code: "KY"
+        }
+      })
+      .then(checkout => {
+        let result = {
+          paymentUrl: checkout.payment_url,
+          token: checkout.token
+        };
+
+        callback(null, result);
+      })
+      .catch(err => {
+        callback(err.response.body)
+      })
+    // .catch(err => res.json({
+    //   result: err.response.body
+    // }))
+  }
+
+  function cardVaulting(data, callback) {
+    console.log(data)
+    let options = {
+      method: 'POST',
+      uri: data.paymentUrl,
+      body: {
+        "amount": "0.01",
+        "unique_token": data.token,
+        "credit_card": {
+          "number": "5555555555554444",
+          "month": "12",
+          "year": "19",
+          "verification_value": "123",
+          "first_name": "John",
+          "last_name": "Smith"
+        }
+      },
+      json: true // Automatically stringifies the body to JSON
+    };
+
+    request(options)
+      .then(function (result) {
+        // POST succeeded...
+        result.token = data.token;
+        callback(null, result);
+      })
+      .catch(function (err) {
+        // POST failed...
+        callback(err)
+      });
+  }
+
+  function completePayment(data, callback) {
+    console.log(data)
+    shopify.payment.create(data.token, {
+        amount: "0.01",
+        session_id: data.id,
+        unique_token: data.token
+      })
+      .then(payment => {
+        callback(null, payment);
+      })
+      .catch(err => {
+        callback(err.response.body)
+      })
+  }
+
+  // function mySecondFunction(token, callback) {
+  //   // arg1 now equals 'one' and arg2 now equals 'two'
+  //   shopify.checkout.complete(token)
+  //     .then(result => {
+  //       callback(null, result);
+  //     })
+  //     .catch(err => {
+  //       callback(err.response.body)
+  //     })
+  // }
+
+
+
+
+
 })
 
 app.get('/categories', (req, res, next) => {
@@ -126,31 +226,44 @@ app.get('/listing', (req, res, next) => {
 })
 
 
-app.get('/customers', (req, res, next) => {
-  shopify.customer.list()
-    .then(customer =>
+app.post('/cart-listing', (req, res, next) => {
+  shopify.product.list({
+      ids: req.body.toString(),
+      fields: ['id', 'title', 'images', 'variants']
+    })
+    .then(product => {
+      console.log(product)
       res.json({
-        customer: customer
-      }))
-    .catch(err => console.error(err))
-});
-
-app.post('/sign-up', (req, res, next) => {
-  shopify.customer.create(req.body)
-    .then(result => {
-      res.json({
-        success: true,
-        result: result
+        result: product
       })
     })
-    .catch(err => res.json({
-      success: false,
-      result: err
-    }))
-  // .catch(err => console.error(err))
-});
+})
 
-//Start the server only the connection to database is successful
+// app.get('/customers', (req, res, next) => {
+//   shopify.customer.list()
+//     .then(customer =>
+//       res.json({
+//         customer: customer
+//       }))
+//     .catch(err => console.error(err))
+// });
+
+// app.post('/sign-up', (req, res, next) => {
+//   shopify.customer.create(req.body)
+//     .then(result => {
+//       res.json({
+//         success: true,
+//         result: result
+//       })
+//     })
+//     .catch(err => res.json({
+//       success: false,
+//       result: err
+//     }))
+//   // .catch(err => console.error(err))
+// });
+
+//Start the server
 app.listen(port, () => {
   console.log('Server started on port' + port);
 });

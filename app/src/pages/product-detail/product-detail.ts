@@ -36,12 +36,6 @@ export class ProductDetailPage {
 
   ionViewDidLoad() {
     this.description.nativeElement.innerHTML = this.productDetails.body_html;
-
-    // this.shopClient = this.shopifyBuy.buildClient({
-    //   accessToken: 'f8da95633331a97c293fff8c8b4b0e6d',
-    //   domain: 'hello-retail.myshopify.com',
-    //   appId: '8'
-    // });
   }
 
   ionViewWillEnter() {
@@ -55,7 +49,8 @@ export class ProductDetailPage {
   addToCart() {
     console.log(this.productDetails)
     let cart = {
-      productId: this.productDetails.product_id,
+      src: this.productDetails.images[0].src,
+      productId: this.productDetails.id,
       variantId: this.productDetails.variants[0].id,
       quantity: 1
     };
