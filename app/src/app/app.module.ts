@@ -21,6 +21,7 @@ import { ProductDetailPage } from "../pages/product-detail/product-detail";
 import { SignupPage } from "../pages/profile/signup/signup";
 import { ProfileProvider } from '../providers/profile/profile';
 import { CheckoutProvider } from '../providers/checkout/checkout';
+import { CheckoutDetailPage } from "../pages/checkout/detail/checkout-detail";
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { CheckoutProvider } from '../providers/checkout/checkout';
     TabsPage,
     SignupPage,
     ProductListingPage,
-    ProductDetailPage
+    ProductDetailPage,
+    CheckoutDetailPage
   ],
   imports: [
     HttpModule,
@@ -49,7 +51,8 @@ import { CheckoutProvider } from '../providers/checkout/checkout';
     TabsPage,
     SignupPage,
     ProductListingPage,
-    ProductDetailPage
+    ProductDetailPage,
+    CheckoutDetailPage
   ],
   providers: [
     StatusBar,

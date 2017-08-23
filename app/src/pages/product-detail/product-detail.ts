@@ -19,6 +19,7 @@ export class ProductDetailPage {
   productDetails: any;
   pictureImages: any = [];
   tabBarElement: any;
+  variantId: any;
   // shopifyBuy = require('shopify-buy');
   // shopClient;
 
@@ -30,6 +31,7 @@ export class ProductDetailPage {
     private storage: Storage) {
     this.productDetails = navParams.get("productDetails");
     console.log(this.productDetails);
+    this.variantId
     this.pictureImages = this.productDetails.images;
     this.tabBarElement = document.querySelector('.tabbar.show-tabbar');
   }
@@ -39,29 +41,46 @@ export class ProductDetailPage {
   }
 
   ionViewWillEnter() {
+    //Hide the bottom menu bar
     this.tabBarElement.style.display = 'none';
   }
 
   ionViewWillLeave() {
+    //Show the bottom menu bar
     this.tabBarElement.style.display = 'flex';
   }
 
   addToCart() {
     console.log(this.productDetails)
+    console.log(this.variantId);
     let cart = {
       src: this.productDetails.images[0].src,
       productId: this.productDetails.id,
-      variantId: this.productDetails.variants[0].id,
+      variantId: this.variantId,
       quantity: 1
     };
     this.storage.get('cart').then((val) => {
 
+      let counter = 0; // to count whether is there exisiting product in the cart already
       if (val) {
+        for (let i of val.storageArray) {
+          // There are existing product in the cart already, as such we need to increment the quantity
+          if (this.productDetails.id == i.productId) {
+            i.quantity++;
+            counter++;
+          }
+        }
         let storageArray = val.storageArray;
-        storageArray.push(cart);
+
+        //That means there are no existing product in the cart, as such we need to add to the cart
+        if (counter == 0) {
+          storageArray.push(cart);
+
+        }
         this.storage.set('cart', {
           storageArray
         });
+
       }
       else {
         let storageArray = [];

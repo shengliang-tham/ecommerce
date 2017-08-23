@@ -24,17 +24,40 @@
     </ion-slides>
 
     <ion-grid>
-      <ion-row>
-        <ion-col col-10>
+      <!-- <ion-row>
+         <ion-col col-10>
           <div class="productTitle">
             {{productDetails.title}}
           </div>
         </ion-col>
         <ion-col col-2>
           <div class="productPrice">
-            {{productDetails.variants[0].formatted_price}}
+            {{productDetails.variants[0].price}}
           </div>
-        </ion-col>
+        </ion-col> 
+      </ion-row> -->
+      <ion-row>
+        <div class="productTitle">
+          {{productDetails.title}}
+        </div>
+      </ion-row>
+
+      <ion-row padding-top padding-bottom>
+        <div padding-right>
+          <ion-icon name="pricetag"></ion-icon>
+
+        </div>
+        S$ {{productDetails.variants[0].price}}
+      </ion-row>
+      <ion-row>
+        <ion-label>Options</ion-label>
+        <ion-select [(ngModel)]="variantId" interface="popover">
+          <ion-option *ngFor="let variant of productDetails.variants; let i=index" [selected]="i == 0" [value]="variant.id">
+            {{variant.option1}} S$ {{variant.price}}
+          </ion-option>
+          <!-- <ion-option value="f">{</ion-option>
+          <ion-option value="m">{{productDetails.variants[1].option1}} S$ {{productDetails.variants[1].price}}</ion-option> -->
+        </ion-select>
       </ion-row>
       <ion-row>
         <div #description class="productDescription">

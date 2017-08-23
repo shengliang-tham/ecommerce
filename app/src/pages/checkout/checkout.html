@@ -8,14 +8,35 @@
 
 <ion-content padding>
   <ion-list>
+
+    <!-- Show when there are no products in the cart  -->
+    <div *ngIf="!productListing?.length > 0">
+      There are no items in the cart
+    </div>
+
+    <!-- Only show when there is product in the cart-->
     <ion-item *ngFor="let item of productListing" padding>
       <ion-thumbnail item-start>
-        <!-- Always display the first image of the image variants -->
+        <!-- Display the first image of the product  -->
         <img src={{item.images[0].src}}>
       </ion-thumbnail>
       <h2>{{item.title}}</h2>
-      <p>{{item.variants[0].price}}</p>
-      <!-- <button ion-button clear item-end (click)="viewDetails(listing);">View</button> -->
+      <p>Price : S$ {{item.variants[0].price}}</p>
+      <p>Quantity : {{item.quantity}}</p>
     </ion-item>
+    <div *ngIf="productListing.length > 0">
+      <div float-left>
+        Total
+      </div>
+      <div float-right>
+        S$ {{totalAmount | number : '1.2'}}
+      </div>
+    </div>
+
   </ion-list>
+
+  <!-- Only show when there is product in the cart  -->
+  <div text-center *ngIf="productListing?.length > 0">
+    <button ion-button margin-top (click)="checkOut()">Check Out</button>
+  </div>
 </ion-content>
