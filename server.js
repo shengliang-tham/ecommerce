@@ -232,7 +232,6 @@ app.post('/cart-listing', (req, res, next) => {
       fields: ['id', 'title', 'images', 'variants']
     })
     .then(product => {
-      console.log(product)
       res.json({
         result: product
       })

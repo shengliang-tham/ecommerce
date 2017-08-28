@@ -14,16 +14,31 @@
       There are no items in the cart
     </div>
 
-    <!-- Only show when there is product in the cart-->
-    <ion-item *ngFor="let item of productListing" padding>
-      <ion-thumbnail item-start>
-        <!-- Display the first image of the product  -->
-        <img src={{item.images[0].src}}>
-      </ion-thumbnail>
-      <h2>{{item.title}}</h2>
-      <p>Price : S$ {{item.variants[0].price}}</p>
-      <p>Quantity : {{item.quantity}}</p>
-    </ion-item>
+    <!-- Only show when there is product in the cart -->
+    <!-- <ion-item *ngFor="let item of productListing" padding> -->
+    <!-- <ion-thumbnail item-start> -->
+    <!-- Display the first image of the product  -->
+    <!-- <img src={{item.images[0].src}}> -->
+    <!-- </ion-thumbnail> -->
+    <!-- <h2>{{item.title}}</h2> -->
+    <!-- <p>Price : S$ {{item.price}}</p> -->
+    <!-- <p>Quantity : {{item.quantity}}</p> -->
+    <!-- </ion-item> -->
+
+    <div *ngFor="let item of productListing">
+      <ion-item *ngFor="let variant of item.variants" padding>
+        <ion-thumbnail item-start>
+          <!-- Display the first image of the product  -->
+          <img src={{item.images[0].src}}>
+        </ion-thumbnail>
+        <h2>{{item.title}}</h2>
+        <p>Variant : {{variant.title}}</p>
+        <p>Price : S$ {{variant.price}}</p>
+        <p>Quantity : {{variant.quantity}}</p>
+      </ion-item>
+    </div>
+
+    <!-- Total Amount -->
     <div *ngIf="productListing.length > 0">
       <div float-left>
         Total

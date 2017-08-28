@@ -31,7 +31,7 @@ export class ProductDetailPage {
     private storage: Storage) {
     this.productDetails = navParams.get("productDetails");
     console.log(this.productDetails);
-    this.variantId
+    this.variantId = this.productDetails.variants[0].id;
     this.pictureImages = this.productDetails.images;
     this.tabBarElement = document.querySelector('.tabbar.show-tabbar');
   }
@@ -51,8 +51,6 @@ export class ProductDetailPage {
   }
 
   addToCart() {
-    console.log(this.productDetails)
-    console.log(this.variantId);
     let cart = {
       src: this.productDetails.images[0].src,
       productId: this.productDetails.id,
@@ -64,11 +62,21 @@ export class ProductDetailPage {
       let counter = 0; // to count whether is there exisiting product in the cart already
       if (val) {
         for (let i of val.storageArray) {
-          // There are existing product in the cart already, as such we need to increment the quantity
-          if (this.productDetails.id == i.productId) {
+          // // There are existing product in the cart already, as such we need to increment the quantity
+          // if (this.productDetails.id == i.productId) {
+          //   // That means user is added the same product variant to the cart.
+          //   if (this.variantId != i.variantId) {
+          //     i.quantity++;
+          //     counter++;
+          //   }
+          // }
+          console.log("i" + i.variantId)
+          console.log("this" + this.variantId)
+          if (this.variantId == i.variantId) {
             i.quantity++;
             counter++;
           }
+
         }
         let storageArray = val.storageArray;
 

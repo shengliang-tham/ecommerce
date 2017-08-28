@@ -21,7 +21,15 @@ export class CheckoutPage {
     private loadingCtrl: LoadingController) {
 
   }
+
+  ionViewWillLeave() {
+    //Initalise back to empty
+    this.productListing = [];
+  }
+
   ionViewWillEnter() {
+    //Initialise back to zero 
+    this.totalAmount = 0.00;
 
     let loading = this.loadingCtrl.create({
       content: 'Please wait...'
@@ -46,27 +54,31 @@ export class CheckoutPage {
         return productIdArray
       })
       .then(result => {
-        //Initialise back to zero 
-        this.totalAmount = 0.00;
         this.checkout.cartListing(result).subscribe(data => {
           this.productListing = data.result;
           //This is to assign the quantity to product list array
           for (let i of this.productListing) {
+            let tempVariantArray = [];
+
             for (let x of this.storageArray) {
-              if (i.id == x.productId) {
-                i.quantity = x.quantity
+
+              //Removing of other variants in the product list array
+              for (let index = 0; index < i.variants.length; index++) {
+
+                if (x.variantId == i.variants[index].id) {
+                  //Assign the quantity to the variant properties from the local storage
+                  i.variants[index].quantity = x.quantity;
+
+                  // To calculate the total amount
+                  this.totalAmount += i.variants[index].quantity * parseFloat(i.variants[index].price);
+                  tempVariantArray.push(i.variants[index]);
+                }
               }
             }
-
-
-
-            // To calculate the total amount
-            this.totalAmount += i.quantity * i.variants[0].price;
+            i.variants = tempVariantArray;
           }
 
           loading.dismiss();
-          console.log(this.productListing)
-          // console.log(data.result)
         })
       })
       .catch(err => {
