@@ -14,50 +14,5 @@
 
 
 <ion-content padding-right>
-  <form [formGroup]="signUpForm" (ngSubmit)="onSignUp(signUpForm.value)">
 
-    <ion-item class="float-left">
-      <ion-label stacked>First Name</ion-label>
-      <ion-input type="text" formControlName="firstName" name="firstName"></ion-input>
-    </ion-item>
-
-    <ion-item class="float-right">
-      <ion-label stacked>Last Name</ion-label>
-      <ion-input type="text" formControlName="lastName" name="lastName"></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-label stacked>Mobile Number</ion-label>
-      <ion-input type="tel" formControlName="mobileNo" name="mobileNo"></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-label stacked>Address</ion-label>
-      <ion-input type="text" formControlName="address1" name="address1"></ion-input>
-    </ion-item>
-    <!-- 
-    <ion-item class="float-left">
-      <ion-label stacked>City</ion-label>
-      <ion-input type="text" formControlName="city" name="city"></ion-input>
-    </ion-item> -->
-
-    <ion-item>
-      <ion-label stacked>Postal Code</ion-label>
-      <ion-input type="text" formControlName="postal" name="postal"></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-label stacked>Email</ion-label>
-      <ion-input type="email" formControlName="email" name="email"></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-label stacked>Password</ion-label>
-      <ion-input type="password" formControlName="password" name="password"></ion-input>
-    </ion-item>
-
-    <div text-center>
-      <button ion-button margin-top type="submit" [disabled]="!signUpForm.valid">Make payment</button>
-    </div>
-  </form>
 </ion-content>

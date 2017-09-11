@@ -91,7 +91,29 @@ export class CheckoutPage {
   }
 
   checkOut() {
-    this.navCtrl.push(CheckoutDetailPage);
+    this.storage.get('cart').then(val => {
+      let tempArray = [];
+
+      for (let i of val.storageArray) {
+        let tempObject = {
+          variant_id: '',
+          quantity: '',
+        };
+        tempObject.variant_id = i.variantId;
+        tempObject.quantity = i.quantity;
+        tempArray.push(tempObject);
+      }
+      return tempArray
+    }).then(storage => {
+      this.checkout.checkOut(storage).subscribe(data => {
+        console.log(data.web_url)
+        this.navCtrl.push(CheckoutDetailPage, {
+          webUrl: data.web_url
+        });
+      })
+    })
+
+
   }
 
 }

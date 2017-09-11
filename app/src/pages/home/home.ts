@@ -27,11 +27,10 @@ export class HomePage {
     this.listingService.retrieveCategories().subscribe(data => {
       this.categories = data.collections;
       loading.dismiss();
-
     })
   }
 
-  viewProduct(categoryId) {
+  viewProduct(categoryId, title) {
     let loading = this.loadingCtrl.create({
       content: 'Please wait...'
     });
@@ -39,7 +38,8 @@ export class HomePage {
     loading.present();
     this.listingService.retrieveCategoryProduct(categoryId).subscribe(data => {
       this.navCtrl.push(ProductListingPage, {
-        listing: data.listing
+        listing: data.listing,
+        title: title
       });
 
       loading.dismiss();

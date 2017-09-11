@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>product-listing</ion-title>
+    <ion-title>{{title}}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -21,7 +21,7 @@
         <img src={{listing.images[0].src}}>
       </ion-thumbnail>
       <h2>{{listing.title}}</h2>
-      <p>Hayao Miyazaki • 1988</p>
+      <p>${{listing.variants[0].price}}</p>
       <button ion-button clear item-end (click)="viewDetails(listing);">View</button>
     </ion-item>
   </ion-list>

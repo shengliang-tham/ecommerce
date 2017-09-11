@@ -20,6 +20,7 @@ export class ProductDetailPage {
   pictureImages: any = [];
   tabBarElement: any;
   variantId: any;
+  hasVariants: boolean;
   // shopifyBuy = require('shopify-buy');
   // shopClient;
 
@@ -31,9 +32,13 @@ export class ProductDetailPage {
     private storage: Storage) {
     this.productDetails = navParams.get("productDetails");
     console.log(this.productDetails);
+
+    //Initialise to the first variant 
     this.variantId = this.productDetails.variants[0].id;
     this.pictureImages = this.productDetails.images;
     this.tabBarElement = document.querySelector('.tabbar.show-tabbar');
+
+
   }
 
   ionViewDidLoad() {

@@ -17,9 +17,12 @@ export class ProductListingPage {
 
   listings: any = [];
   tabBarElement: any;
+  title;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.listings = navParams.get("listing");
+    this.title = navParams.get("title");
+    console.log(this.listings)
     this.tabBarElement = document.querySelector('.tabbar.show-tabbar');
   }
 

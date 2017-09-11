@@ -23,4 +23,11 @@ export class CheckoutProvider {
     return this.http.post(vars.apiUrl + '/cart-listing', credentials, { headers: headers })
       .map(res => res.json());
   }
+
+  checkOut(cart) {
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.post(vars.apiUrl + '/checkout', cart, { headers: headers })
+      .map(res => res.json());
+  }
 }

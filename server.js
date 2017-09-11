@@ -60,137 +60,126 @@ app.get('/test', (req, res, next) => {
 })
 
 app.post('/checkout', (req, res, next) => {
+  shopify.checkout.create({
+      line_items: req.body
+    })
+    .then(data => {
+      res.json(data)
+    })
+  // async.waterfall([
+  //   createCheckout,
+  //   cardVaulting,
+  //   completePayment
+  // ], function (err, result) {
+  //   // result now equals 'done'
+  //   if (err) {
+  //     res.json({
+  //       error: err
+  //     })
+  //   } else {
+  //     res.json({
+  //       data: result
+  //     })
+  //   }
+  // });
 
-  async.waterfall([
-    createCheckout,
-    cardVaulting,
-    completePayment
-  ], function (err, result) {
-    // result now equals 'done'
-    if (err) {
-      res.json({
-        error: err
-      })
-    } else {
-      res.json({
-        data: result
-      })
-    }
-  });
+  // function createCheckout(callback) {
+  //   shopify.checkout.create({
+  //       email: "test@hotmail.com",
+  //       line_items: [{
+  //         product_id: '10753675783',
+  //         variant_id: '47592213831',
+  //         quantity: 1
+  //       }],
+  //       billing_address: {
+  //         address1: "Chestnut Street 92",
+  //         address2: "Apt 2",
+  //         city: "Louisville",
+  //         country: "United States",
+  //         first_name: "Bob",
+  //         last_name: "Norman",
+  //         phone: "555-625-1199",
+  //         province: "Kentucky",
+  //         zip: "40202",
+  //         country_code: "US",
+  //         province_code: "KY"
+  //       },
+  //       shipping_address: {
+  //         address1: "Chestnut Street 92",
+  //         address2: "Apt 2",
+  //         city: "Louisville",
+  //         country: "United States",
+  //         first_name: "Bob",
+  //         last_name: "Norman",
+  //         phone: "555-625-1199",
+  //         province: "Kentucky",
+  //         zip: "40202",
+  //         country_code: "US",
+  //         province_code: "KY"
+  //       }
+  //     })
+  //     .then(checkout => {
+  //       let result = {
+  //         paymentUrl: checkout.payment_url,
+  //         token: checkout.token
+  //       };
 
-  function createCheckout(callback) {
-    shopify.checkout.create({
-        email: "test@hotmail.com",
-        line_items: [{
-          product_id: '10753675783',
-          variant_id: '47592213831',
-          quantity: 1
-        }],
-        billing_address: {
-          address1: "Chestnut Street 92",
-          address2: "Apt 2",
-          city: "Louisville",
-          country: "United States",
-          first_name: "Bob",
-          last_name: "Norman",
-          phone: "555-625-1199",
-          province: "Kentucky",
-          zip: "40202",
-          country_code: "US",
-          province_code: "KY"
-        },
-        shipping_address: {
-          address1: "Chestnut Street 92",
-          address2: "Apt 2",
-          city: "Louisville",
-          country: "United States",
-          first_name: "Bob",
-          last_name: "Norman",
-          phone: "555-625-1199",
-          province: "Kentucky",
-          zip: "40202",
-          country_code: "US",
-          province_code: "KY"
-        }
-      })
-      .then(checkout => {
-        let result = {
-          paymentUrl: checkout.payment_url,
-          token: checkout.token
-        };
-
-        callback(null, result);
-      })
-      .catch(err => {
-        callback(err.response.body)
-      })
-    // .catch(err => res.json({
-    //   result: err.response.body
-    // }))
-  }
-
-  function cardVaulting(data, callback) {
-    console.log(data)
-    let options = {
-      method: 'POST',
-      uri: data.paymentUrl,
-      body: {
-        "amount": "0.01",
-        "unique_token": data.token,
-        "credit_card": {
-          "number": "5555555555554444",
-          "month": "12",
-          "year": "19",
-          "verification_value": "123",
-          "first_name": "John",
-          "last_name": "Smith"
-        }
-      },
-      json: true // Automatically stringifies the body to JSON
-    };
-
-    request(options)
-      .then(function (result) {
-        // POST succeeded...
-        result.token = data.token;
-        callback(null, result);
-      })
-      .catch(function (err) {
-        // POST failed...
-        callback(err)
-      });
-  }
-
-  function completePayment(data, callback) {
-    console.log(data)
-    shopify.payment.create(data.token, {
-        amount: "0.01",
-        session_id: data.id,
-        unique_token: data.token
-      })
-      .then(payment => {
-        callback(null, payment);
-      })
-      .catch(err => {
-        callback(err.response.body)
-      })
-  }
-
-  // function mySecondFunction(token, callback) {
-  //   // arg1 now equals 'one' and arg2 now equals 'two'
-  //   shopify.checkout.complete(token)
-  //     .then(result => {
   //       callback(null, result);
   //     })
   //     .catch(err => {
   //       callback(err.response.body)
   //     })
+  //   // .catch(err => res.json({
+  //   //   result: err.response.body
+  //   // }))
   // }
 
+  // function cardVaulting(data, callback) {
+  //   console.log(data)
+  //   let options = {
+  //     method: 'POST',
+  //     uri: data.paymentUrl,
+  //     body: {
+  //       "amount": "0.01",
+  //       "unique_token": data.token,
+  //       "credit_card": {
+  //         "number": "5555555555554444",
+  //         "month": "12",
+  //         "year": "19",
+  //         "verification_value": "123",
+  //         "first_name": "John",
+  //         "last_name": "Smith"
+  //       }
+  //     },
+  //     json: true // Automatically stringifies the body to JSON
+  //   };
 
+  //   request(options)
+  //     .then(function (result) {
+  //       // POST succeeded...
+  //       result.token = data.token;
+  //       callback(null, result);
+  //     })
+  //     .catch(function (err) {
+  //       // POST failed...
+  //       callback(err)
+  //     });
+  // }
 
-
-
+  // function completePayment(data, callback) {
+  //   console.log(data)
+  //   shopify.payment.create(data.token, {
+  //       amount: "0.01",
+  //       session_id: data.id,
+  //       unique_token: data.token
+  //     })
+  //     .then(payment => {
+  //       callback(null, payment);
+  //     })
+  //     .catch(err => {
+  //       callback(err.response.body)
+  //     })
+  // }
 })
 
 app.get('/categories', (req, res, next) => {

@@ -12,6 +12,7 @@ import { ProfilePage } from "../pages/profile/profile";
 import { TabsPage } from '../pages/tabs/tabs';
 
 import { StatusBar } from '@ionic-native/status-bar';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Keyboard } from '@ionic-native/keyboard';
 import { ListingProvider } from '../providers/listing/listing';
@@ -58,6 +59,7 @@ import { CheckoutDetailPage } from "../pages/checkout/detail/checkout-detail";
     StatusBar,
     SplashScreen,
     Keyboard,
+    InAppBrowser,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     ListingProvider,
     ProfileProvider,

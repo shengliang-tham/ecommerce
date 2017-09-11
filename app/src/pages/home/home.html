@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Home</ion-title>
+    <ion-title>Categories</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -12,8 +12,7 @@
         <img src={{category.image.src}}>
       </ion-thumbnail>
       <h2>{{category.title}}</h2>
-      <p>Hayao Miyazaki • 1988</p>
-      <button ion-button clear item-end (click)="viewProduct(category.collection_id);">View</button>
+      <button ion-button clear item-end (click)="viewProduct(category.collection_id,category.title);">View</button>
     </ion-item>
   </ion-list>
 </ion-content>

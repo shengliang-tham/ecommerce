@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>product-detail</ion-title>
+    <ion-title>{{productDetails.title}}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -59,6 +59,15 @@
           <ion-option value="m">{{productDetails.variants[1].option1}} S$ {{productDetails.variants[1].price}}</ion-option> -->
         </ion-select>
       </ion-row>
+
+      <ion-row>
+        <div padding-right padding-bottom>
+          <ion-icon name="document"></ion-icon>
+        </div>
+        <b>Description</b>
+
+      </ion-row>
+
       <ion-row>
         <div #description class="productDescription">
 
@@ -67,8 +76,9 @@
     </ion-grid>
 
     <div text-center class="cart">
-      <button ion-button round center text-center (click)="addToCart()">Add to Cart  
-       <ion-icon name="cart"></ion-icon> 
+      <button ion-button round center text-center (click)="addToCart()" style="white-space: pre">
+      <ion-icon name="cart"> </ion-icon>
+Add to Cart  
       </button>
     </div>
 
