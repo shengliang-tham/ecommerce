@@ -32,7 +32,7 @@
           <img src={{item.images[0].src}}>
         </ion-thumbnail>
         <h2>{{item.title}}</h2>
-        <p>Variant : {{variant.title}}</p>
+        <p *ngIf="variant.title != 'Default Title'">Variant : {{variant.title}}</p>
         <p>Price : S$ {{variant.price}}</p>
         <p>Quantity : {{variant.quantity}}</p>
       </ion-item>

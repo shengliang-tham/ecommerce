@@ -49,16 +49,21 @@
         </div>
         S$ {{productDetails.variants[0].price}}
       </ion-row>
-      <ion-row>
-        <ion-label>Options</ion-label>
-        <ion-select [(ngModel)]="variantId" interface="popover">
-          <ion-option *ngFor="let variant of productDetails.variants; let i=index" [selected]="i == 0" [value]="variant.id">
-            {{variant.option1}} S$ {{variant.price}}
-          </ion-option>
-          <!-- <ion-option value="f">{</ion-option>
+
+      <!-- Only show variants if there are variants being set in the store -->
+      <div *ngIf="productDetails.variants[0].title != 'Default Title'">
+
+        <ion-row>
+          <ion-label>Options</ion-label>
+          <ion-select [(ngModel)]="variantId" interface="popover">
+            <ion-option *ngFor="let variant of productDetails.variants; let i=index" [selected]="i == 0" [value]="variant.id">
+              {{variant.option1}} S$ {{variant.price}}
+            </ion-option>
+            <!-- <ion-option value="f">{</ion-option>
           <ion-option value="m">{{productDetails.variants[1].option1}} S$ {{productDetails.variants[1].price}}</ion-option> -->
-        </ion-select>
-      </ion-row>
+          </ion-select>
+        </ion-row>
+      </div>
 
       <ion-row>
         <div padding-right padding-bottom>
