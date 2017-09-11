@@ -90,6 +90,53 @@ export class CheckoutPage {
     }
   }
 
+  onRemove(productId, variantId) {
+    console.log(productId)
+    console.log(variantId)
+
+    let storageArray = [];
+    this.storage.get('cart').then(val => {
+      for (let i = 0; i < val.storageArray.length; i++) {
+        if ((val.storageArray[i].productId == productId) && (val.storageArray[i].variantId == variantId)) {
+          console.log(i)
+          //Remove one item
+          val.storageArray.splice(i, 1)
+          storageArray = val.storageArray
+          this.storage.set('cart', {
+            storageArray
+          });
+
+        }
+      }
+      this.ionViewWillEnter();
+
+      console.log(this.productListing)
+      // for (let i = 0; i < this.productListing.length; i++) {
+      //   if (this.productListing[i].id == productId) {
+      //     console.log(i)
+      //     for (let x = 0; i < this.productListing[i].variants.length; x++) {
+      //       console.log(x)
+
+      //       if (this.productListing[i].variants[x].id == variantId) {
+      //         this.totalAmount = this.totalAmount - this.productListing[i].variants[x].price;
+      //         if (this.productListing[i].variants.length >= 2) {
+      //           this.productListing[i].variants.splice(x, 1)
+      //           console.log("hello1")
+
+      //         }
+      //         else {
+      //           this.productListing.splice(i, 1)
+      //           console.log("hell2")
+
+      //         }
+      //       }
+      //     }
+      //   }
+      // }
+    });
+  }
+
+
   checkOut() {
     this.storage.get('cart').then(val => {
       let tempArray = [];

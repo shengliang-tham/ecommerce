@@ -35,6 +35,14 @@
         <p *ngIf="variant.title != 'Default Title'">Variant : {{variant.title}}</p>
         <p>Price : S$ {{variant.price}}</p>
         <p>Quantity : {{variant.quantity}}</p>
+        <button ion-button outline (click)="onRemove(item.id,variant.id)">
+          <ion-icon class="fa fa-times"></ion-icon>
+          Remove
+        </button>
+        <button ion-button outline>
+          <ion-icon class="fa fa-pencil-square-o"></ion-icon>
+          Edit
+        </button>
       </ion-item>
     </div>
 
