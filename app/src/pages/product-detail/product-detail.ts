@@ -21,8 +21,7 @@ export class ProductDetailPage {
   tabBarElement: any;
   variantId: any;
   hasVariants: boolean;
-  // shopifyBuy = require('shopify-buy');
-  // shopClient;
+  stockStatus: boolean;
 
   @ViewChild('description') description: ElementRef;
 
@@ -37,7 +36,7 @@ export class ProductDetailPage {
     this.variantId = this.productDetails.variants[0].id;
     this.pictureImages = this.productDetails.images;
     this.tabBarElement = document.querySelector('.tabbar.show-tabbar');
-
+    this.stockStatus = this.productDetails.variants[0].inventory_policy;
 
   }
 

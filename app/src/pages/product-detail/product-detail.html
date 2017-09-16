@@ -80,11 +80,17 @@
       </ion-row>
     </ion-grid>
 
-    <div text-center class="cart">
+    <div text-center class="cart" *ngIf="stockStatus == 'continue'">
       <button ion-button round center text-center (click)="addToCart()" style="white-space: pre">
       <ion-icon name="cart"> </ion-icon>
 Add to Cart  
       </button>
+    </div>
+
+    <div text-center class="cart" *ngIf="stockStatus == 'deny'">
+      <button ion-button round center text-center disabled>
+  OUT OF STOCK  
+        </button>
     </div>
 
 

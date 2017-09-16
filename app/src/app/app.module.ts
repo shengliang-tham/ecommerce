@@ -3,10 +3,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { ReactiveFormsModule } from '@angular/forms';
 import { IonicStorageModule } from '@ionic/storage';
+import { MultiPickerModule } from 'ion-multi-picker';
 
 import { MyApp } from './app.component';
 
-import { CheckoutPage } from "../pages/checkout/checkout";
+import { CartPage } from "../pages/cart/cart";
 import { HomePage } from '../pages/home/home';
 import { ProfilePage } from "../pages/profile/profile";
 import { TabsPage } from '../pages/tabs/tabs';
@@ -22,38 +23,39 @@ import { ProductDetailPage } from "../pages/product-detail/product-detail";
 import { SignupPage } from "../pages/profile/signup/signup";
 import { ProfileProvider } from '../providers/profile/profile';
 import { CheckoutProvider } from '../providers/checkout/checkout';
-import { CheckoutDetailPage } from "../pages/checkout/detail/checkout-detail";
+import { PaymentPage } from "../pages/cart/payment/payment";
 
 @NgModule({
   declarations: [
     MyApp,
-    CheckoutPage,
+    CartPage,
     ProfilePage,
     HomePage,
     TabsPage,
     SignupPage,
     ProductListingPage,
     ProductDetailPage,
-    CheckoutDetailPage
+    PaymentPage
   ],
   imports: [
     HttpModule,
     BrowserModule,
     ReactiveFormsModule,
+    MultiPickerModule,
     IonicModule.forRoot(MyApp, { scrollAssist: false, autoFocusAssist: false }),
     IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    CheckoutPage,
+    CartPage,
     ProfilePage,
     HomePage,
     TabsPage,
     SignupPage,
     ProductListingPage,
     ProductDetailPage,
-    CheckoutDetailPage
+    PaymentPage
   ],
   providers: [
     StatusBar,

@@ -2,13 +2,15 @@ import { Component } from '@angular/core';
 import { NavController, LoadingController, AlertController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { CheckoutProvider } from "../../providers/checkout/checkout";
-import { CheckoutDetailPage } from "./detail/checkout-detail";
+import { PaymentPage } from "./payment/payment";
+
+
 
 @Component({
-  selector: 'page-about',
-  templateUrl: 'checkout.html'
+  selector: 'page-cart',
+  templateUrl: 'cart.html'
 })
-export class CheckoutPage {
+export class CartPage {
 
   storageArray = [];
   productListing = [];
@@ -19,7 +21,7 @@ export class CheckoutPage {
     private storage: Storage,
     private checkout: CheckoutProvider,
     private loadingCtrl: LoadingController,
-    private alertCtrl: AlertController) {
+  ) {
 
   }
 
@@ -31,6 +33,7 @@ export class CheckoutPage {
   ionViewWillEnter() {
     //Initialise back to zero 
     this.totalAmount = 0.00;
+    this.productListing = [];
 
     let loading = this.loadingCtrl.create({
       content: 'Please wait...'
@@ -97,54 +100,49 @@ export class CheckoutPage {
   onRemove(productId, variantId) {
     let storageArray = [];
     this.storage.get('cart').then(val => {
-      for (let i = 0; i < val.storageArray.length; i++) {
-        if ((val.storageArray[i].productId == productId) && (val.storageArray[i].variantId == variantId)) {
-          //Remove one item
-          val.storageArray.splice(i, 1)
-          storageArray = val.storageArray
-          this.storage.set('cart', {
-            storageArray
-          });
 
+      if (val.storageArray.length <= 1) {
+        console.log(val.storageArray.length)
+        this.storage.remove('cart')
+          .then(result => {
+            this.ionViewWillEnter();
+          })
+      }
+      else {
+
+        for (let i = 0; i < val.storageArray.length; i++) {
+          if ((val.storageArray[i].productId == productId) && (val.storageArray[i].variantId == variantId)) {
+            //Remove one item
+            val.storageArray.splice(i, 1)
+            storageArray = val.storageArray
+            this.storage.set('cart', {
+              storageArray
+            })
+              // Reload the view
+              .then(result => {
+                this.ionViewWillEnter();
+
+              });
+            console.log(storageArray)
+          }
         }
       }
     })
-      // Reload the view
-      .then(result => {
-        this.ionViewWillEnter();
-
+      .catch(err => {
+        console.log(err)
       })
   }
 
   onEdit(productId, variantId) {
-    let prompt = this.alertCtrl.create({
-      title: 'Login',
-      message: "Enter a name for this new album you're so keen on adding",
-      inputs: [
-        {
-          name: 'title',
-          placeholder: 'Title'
-        },
-      ],
-      buttons: [
-        {
-          text: 'Cancel',
-          handler: data => {
-            console.log('Cancel clicked');
-          }
-        },
-        {
-          text: 'Save',
-          handler: data => {
-            console.log('Saved clicked');
-          }
-        }
-      ]
-    });
-    prompt.present();
+
   }
 
   checkOut() {
+    let loading = this.loadingCtrl.create({
+      content: 'Please wait...'
+    });
+
+    loading.present();
     this.storage.get('cart').then(val => {
       let tempArray = [];
 
@@ -161,7 +159,8 @@ export class CheckoutPage {
     }).then(storage => {
       this.checkout.checkOut(storage).subscribe(data => {
         console.log(data.web_url)
-        this.navCtrl.push(CheckoutDetailPage, {
+        loading.dismiss();
+        this.navCtrl.push(PaymentPage, {
           webUrl: data.web_url
         });
       })

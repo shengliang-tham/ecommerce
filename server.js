@@ -225,6 +225,9 @@ app.post('/cart-listing', (req, res, next) => {
         result: product
       })
     })
+    .catch(err => {
+      console.log(err)
+    })
 })
 
 // app.get('/customers', (req, res, next) => {

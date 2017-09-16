@@ -32,24 +32,29 @@
           <img src={{item.images[0].src}}>
         </ion-thumbnail>
         <h2>{{item.title}}</h2>
-        <p *ngIf="variant.title != 'Default Title'">Variant : {{variant.title}}</p>
-        <p>Price : S$ {{variant.price}}</p>
-        <p>Quantity : {{variant.quantity}}</p>
+        <p *ngIf="variant.title != 'Default Title'" class="productDetails">Variant : {{variant.title}}</p>
+        <p class="productDetails">Quantity : {{variant.quantity}}</p>
+        <p>S$ {{variant.price}}</p>
+
         <button ion-button outline (click)="onRemove(item.id,variant.id)">
           <ion-icon class="fa fa-times"></ion-icon>
           Remove
         </button>
-        <button ion-button outline (click)="onEdit(item.id,variant.id)">
+        <!-- <button ion-button outline (click)="onEdit(item.id,variant.id,$event)">
           <ion-icon class="fa fa-pencil-square-o"></ion-icon>
           Edit
-        </button>
+        </button> -->
       </ion-item>
+      <!-- <ion-item>
+        <ion-label>Fruit Picker</ion-label>
+        <ion-datetime displayFormat="mm" minuteValues="1,2,3,4,5,6,7,8,9,10" [(ngModel)]="alertTime" item-end></ion-datetime>
+      </ion-item> -->
     </div>
 
     <!-- Total Amount -->
     <div *ngIf="productListing.length > 0">
       <div float-left>
-        Total
+        Total Payable
       </div>
       <div float-right>
         S$ {{totalAmount | number : '1.2'}}
