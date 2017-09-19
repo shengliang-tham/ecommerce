@@ -8,7 +8,7 @@ import { MyApp } from './app.component';
 
 import { CartPage } from "../pages/cart/cart";
 import { HomePage } from '../pages/home/home';
-import { ProfilePage } from "../pages/profile/profile";
+import { EntertainmentPage } from "../pages/entertainment/entertainment";
 import { TabsPage } from '../pages/tabs/tabs';
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -19,7 +19,7 @@ import { ListingProvider } from '../providers/listing/listing';
 import { HttpModule } from '@angular/http';
 import { ProductListingPage } from "../pages/product-listing/product-listing";
 import { ProductDetailPage } from "../pages/product-detail/product-detail";
-import { SignupPage } from "../pages/profile/signup/signup";
+import { SignupPage } from "../pages/entertainment/signup/signup";
 import { ProfileProvider } from '../providers/profile/profile';
 import { CheckoutProvider } from '../providers/checkout/checkout';
 import { PaymentPage } from "../pages/cart/payment/payment";
@@ -28,7 +28,7 @@ import { PaymentPage } from "../pages/cart/payment/payment";
   declarations: [
     MyApp,
     CartPage,
-    ProfilePage,
+    EntertainmentPage,
     HomePage,
     TabsPage,
     SignupPage,
@@ -47,7 +47,7 @@ import { PaymentPage } from "../pages/cart/payment/payment";
   entryComponents: [
     MyApp,
     CartPage,
-    ProfilePage,
+    EntertainmentPage,
     HomePage,
     TabsPage,
     SignupPage,
