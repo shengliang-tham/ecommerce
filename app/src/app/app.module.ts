@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { ReactiveFormsModule } from '@angular/forms';
 import { IonicStorageModule } from '@ionic/storage';
-import { MultiPickerModule } from 'ion-multi-picker';
 
 import { MyApp } from './app.component';
 
@@ -41,7 +40,6 @@ import { PaymentPage } from "../pages/cart/payment/payment";
     HttpModule,
     BrowserModule,
     ReactiveFormsModule,
-    MultiPickerModule,
     IonicModule.forRoot(MyApp, { scrollAssist: false, autoFocusAssist: false }),
     IonicStorageModule.forRoot()
   ],
