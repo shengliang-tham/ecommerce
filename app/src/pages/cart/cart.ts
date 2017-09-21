@@ -36,7 +36,8 @@ export class CartPage {
     this.productListing = [];
 
     let loading = this.loadingCtrl.create({
-      content: 'Please wait...'
+      content: 'Please wait...',
+      duration: 10000
     });
 
     loading.present();
@@ -139,7 +140,8 @@ export class CartPage {
 
   checkOut() {
     let loading = this.loadingCtrl.create({
-      content: 'Please wait...'
+      content: 'Please wait...',
+      duration: 10000
     });
 
     loading.present();
