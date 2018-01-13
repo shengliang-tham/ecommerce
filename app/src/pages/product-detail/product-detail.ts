@@ -23,6 +23,8 @@ export class ProductDetailPage {
   hasVariants: boolean;
   stockStatus: boolean;
 
+  currentNumber: any = 1;
+
   @ViewChild('description') description: ElementRef;
 
   constructor(private navCtrl: NavController,
@@ -54,12 +56,22 @@ export class ProductDetailPage {
     this.tabBarElement.style.display = 'flex';
   }
 
+  increment() {
+    this.currentNumber++;
+  }
+
+  decrement() {
+    if (this.currentNumber > 1) {
+      this.currentNumber--;
+    }
+  }
+
   addToCart() {
     let cart = {
       src: this.productDetails.images[0].src,
       productId: this.productDetails.id,
       variantId: this.variantId,
-      quantity: 1
+      quantity: this.currentNumber
     };
     this.storage.get('cart').then((val) => {
 
@@ -77,7 +89,7 @@ export class ProductDetailPage {
           console.log("i" + i.variantId)
           console.log("this" + this.variantId)
           if (this.variantId == i.variantId) {
-            i.quantity++;
+            i.quantity += this.currentNumber;
             counter++;
           }
 
