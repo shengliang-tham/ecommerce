@@ -2,6 +2,7 @@ import { Component, ChangeDetectorRef } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController, ToastController, Platform } from 'ionic-angular';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { CustomValidators } from 'ng2-validation';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'page-cart-payment;',
@@ -10,7 +11,6 @@ import { CustomValidators } from 'ng2-validation';
 export class PaymentPage {
   tabBarElement: any;
   webUrl;
-
   paymentMade = false;
 
   constructor(private navCtrl: NavController,
@@ -19,6 +19,7 @@ export class PaymentPage {
     private toastCtrl: ToastController,
     private inAppBrowser: InAppBrowser,
     private platform: Platform,
+    private storage: Storage,
     private ref: ChangeDetectorRef) {
     this.tabBarElement = document.querySelector('.tabbar.show-tabbar');
 
@@ -43,7 +44,9 @@ export class PaymentPage {
           this.paymentMade = true
           this.ref.detectChanges(); // Triggering change detection manully
           browser.close();
-
+          this.storage.remove('cart')
+            .then(result => {
+            })
         }
       })
     });
@@ -55,6 +58,7 @@ export class PaymentPage {
 
   ionViewWillLeave() {
     this.tabBarElement.style.display = 'flex';
+
   }
 
   onBack() {
