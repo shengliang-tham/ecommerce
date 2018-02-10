@@ -5,6 +5,15 @@
 </ion-header>
 
 <ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-6 *ngFor="let category of categories">
+        <img src={{category.image.src}}>
+        <h2>{{category.title}}</h2>
+        <button ion-button clear item-end (click)="viewProduct(category.collection_id,category.title);">View</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
   <ion-list>
     <ion-item *ngFor="let category of categories" padding>
       <ion-thumbnail item-start>
