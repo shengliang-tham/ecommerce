@@ -6,14 +6,14 @@
 
 <ion-content>
 
-    <ion-grid>
-        <ion-row *ngFor="let category of categories">
-            <div class="background middle-text" padding [style.background-image]="'url(' + category.image.src + ')'" (click)="viewProduct(category.collection_id,category.title);"> 
-                <h2>{{category.title}}</h2>
-              </div>
-        </ion-row>
-      </ion-grid>
-
+  <ion-grid>
+    <ion-row *ngFor="let category of categories">
+      <div class="background middle-text" padding [style.background-image]="'url(' + category.image.src + ')'" (click)="viewProduct(category.collection_id,category.title);">
+        <h2>{{category.title}}</h2>
+      </div>
+    </ion-row>
+  </ion-grid>
+  <!-- 
   <ion-list>
     <ion-item *ngFor="let category of categories" padding>
       <ion-thumbnail item-start>
@@ -22,5 +22,5 @@
       <h2>{{category.title}}</h2>
       <button ion-button clear item-end (click)="viewProduct(category.collection_id,category.title);">View</button>
     </ion-item>
-  </ion-list>
+  </ion-list> -->
 </ion-content>
